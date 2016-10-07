@@ -38,14 +38,16 @@ export default function ({types: t}) {
         /* All ArrowFunctionExpression without a _magicCurrying CallExpression
           will be embraced by it */
 
-          let node = path.node,
-              parent = path.parentPath.node;
+        let node = path.node,
+            parent = path.parentPath.node;
 
-          if(t.isCallExpression(parent) && parent.callee.name === "_magicCurrying") {
-            return ; // All is already done
-          }
+        if(t.isCallExpression(parent) && parent.callee.name === "_magicCurrying") {
+          return ; // All is already done
+        }
 
-          let next = t.callExpression(t.identifier("_magicCurrying"), [node]);
+        let next = t.callExpression(t.identifier("_magicCurrying"), [node]);
+
+        path.replaceWith(next);
 
           path.replaceWith(next);
       }
