@@ -4,7 +4,7 @@ import assert from 'assert';
 import { transformFileSync } from 'babel-core';
 
 function trim(str) {
-  return str.replace(/^\s+|\s+$/, '');
+  return str.replace(/^\s+|\s+$/, '').replace(/(\r)/gm,"");
 }
 
 describe('magic-currying', () => {
