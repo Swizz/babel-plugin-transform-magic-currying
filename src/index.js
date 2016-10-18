@@ -15,6 +15,8 @@ let buildMagicCurryingGlobalFunction = template(`
   }
 `);
 
+let ignoredFunctionNames = ['_magicCurrying', '_magicCurrying_fn', '_interopRequireDefault'];
+
 export default function ({types: t}) {
 
   const hasDirective = (node, directive) =>
@@ -33,8 +35,7 @@ export default function ({types: t}) {
 
         let node = path.node;
 
-        if(hasDirective(node, "no curry") ||
-           node.id.name === "_magicCurrying") {
+        if(hasDirective(node, "no curry") || ignoredFunctionNames.includes(node.id.name)) {
           return ; // All is already done
         }
 
@@ -57,7 +58,7 @@ export default function ({types: t}) {
             parent = path.parentPath.node;
 
         if(hasDirective(node, "no curry") ||
-           node.id !== null && ( node.id.name === "_magicCurrying" || node.id.name === "_magicCurrying_fn" ) ||
+           node.id !== null && ( ignoredFunctionNames.includes(node.id.name) ) ||
            t.isCallExpression(parent) && parent.callee.name === "_magicCurrying") {
           return ; // All is already done
         }
