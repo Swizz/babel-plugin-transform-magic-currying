@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-magic-currying",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Babel transform plugin for magic auto currying",
   "author": "Quentin Gerodel <me@quentingerodel.eu>",
   "main": "lib/index.js",
